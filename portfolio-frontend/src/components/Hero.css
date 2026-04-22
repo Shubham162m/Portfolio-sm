@@ -1,0 +1,83 @@
+.hero {
+  padding: 60px 0;
+  background: linear-gradient(135deg, #020617, #0f172a);
+}
+
+.hero-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 0 16px;
+}
+
+.hero-avatar {
+  width: 140px;          
+  height: 140px;         
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 3px solid #6366f1;
+}
+.hero-content {
+  max-width: 500px;
+}
+
+.hero-greeting {
+  font-size: 1.8rem;
+  color: #f1f5f9;
+}
+.hero-name {
+  font-size: 1.8rem;
+  color: #f1f5f9;
+}
+
+.hero-branch {
+  color: #a78bfa;
+  font-size: 0.95rem;
+}
+
+.hero-year,
+.hero-college {
+  color: #cbd5f5;
+  font-size: 0.85rem;
+}
+
+.hero-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 7px 14px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: white;
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+
+.hero-about {
+  flex: 0 0 400px;   /* fixed width so it stays on right */
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  color: #a855f7;
+}

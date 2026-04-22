@@ -1,0 +1,132 @@
+.footer {
+  padding: 40px 0;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.copyright {
+  color: #cbd5f5;
+  font-size: 0.9rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.social-link:hover {
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99,102,241,0.4);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}.footer {
+  padding: 20px 0;
+  background: #020617;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: #cbd5f5;
+}
+
+.social-links {
+  display: flex;
+  gap: 8px;
+}
+
+.social-links a {
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.footer {
+  padding: 20px 0;
+  background: #020617;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: #cbd5f5;
+}
+
+.social-links {
+  display: flex;
+  gap: 8px;
+}
+
+.social-links a {
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+}
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}

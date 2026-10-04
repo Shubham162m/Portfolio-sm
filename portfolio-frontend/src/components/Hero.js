@@ -13,7 +13,7 @@ function Hero() {
 
         <div className="hero-image">
                 <img 
-                  src="/assets/fly.jpeg" 
+                  src="/assets/smmodi.jpeg" 
                   alt="Shubham" 
                   className="hero-avatar" 
                 />        

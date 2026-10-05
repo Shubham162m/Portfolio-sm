@@ -643,14 +643,20 @@ function ViewContacts() {
 
             {/* Date */}
 
-            {item.submittedAt && (
-              <p>
-                <strong>Date:</strong>{" "}
-                {new Date(
-                  item.submittedAt
-                ).toLocaleString()}
-              </p>
-            )}
+{item.submittedAt && (
+  <p className="contact-date">
+    <strong>Date & Time:</strong>{" "}
+    {new Date(item.submittedAt).toLocaleString("en-IN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    })}
+  </p>
+)}
 
             {/* Delete Button */}
 

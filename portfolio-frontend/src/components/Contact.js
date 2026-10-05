@@ -5,7 +5,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -18,7 +18,7 @@ const Contact = () => {
     phone: "+91 9265706957",
     location: "Vadgam, Palanpur, Gujarat, India",
     introText:
-      "Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours."
+      "Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours.",
   };
 
   const SOCIAL_LINKS = {
@@ -26,46 +26,64 @@ const Contact = () => {
     facebook: "https://www.facebook.com/shubham.modi.33483",
     whatsapp: "https://wa.me/qr/URLGP4CNTE23M1",
     linkedin: "https://www.linkedin.com/in/shubham-modi-ba1230363/",
-    github: "https://github.com/Shubham162m"
+    github: "https://github.com/Shubham162m",
   };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
-    try {
-      const res = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setSubmitted(true);
-        setFormData({ name: "", email: "", message: "" });
-
-        setTimeout(() => setSubmitted(false), 3000);
-      } else {
-        alert(data.message || "Something went wrong");
-      }
-
-    } catch (error) {
-      console.error(error);
-      alert("Server error. Please try again.");
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please fill all fields.");
+      return;
     }
 
-    setLoading(false);
+    setLoading(true);
+    setSubmitted(false);
+
+    try {
+      const response = await fetch(
+        "https://smgalaxy-backend.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitted(true);
+
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 3000);
+      } else {
+        alert(data.message || "Something went wrong.");
+      }
+    } catch (error) {
+      console.error("Contact form error:", error);
+      alert(
+        "Unable to connect to the server. Please check your internet connection."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,13 +91,17 @@ const Contact = () => {
       <div className="container">
         <div className="contact-wrapper">
 
+          {/* Contact Information */}
           <div className="contact-info">
             <h3>Let's Talk</h3>
+
             <p>{YOUR_INFO.introText}</p>
 
             <div className="contact-details">
+
               <div className="contact-item">
                 <h4>Email</h4>
+
                 <a href={`mailto:${YOUR_INFO.email}`}>
                   {YOUR_INFO.email}
                 </a>
@@ -87,6 +109,7 @@ const Contact = () => {
 
               <div className="contact-item">
                 <h4>Phone</h4>
+
                 <a href={`tel:${YOUR_INFO.phone}`}>
                   {YOUR_INFO.phone}
                 </a>
@@ -94,23 +117,65 @@ const Contact = () => {
 
               <div className="contact-item">
                 <h4>Location</h4>
+
                 <p>{YOUR_INFO.location}</p>
               </div>
+
             </div>
 
+            {/* Social Links */}
             <div className="contact-social">
               <h4>Follow Me</h4>
+
               <div className="social-links">
-                <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer">Instagram</a>
-                <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer">Facebook</a>
-                <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer">WhatsApp</a>
-                <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-                <a href={SOCIAL_LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
+
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Instagram
+                </a>
+
+                <a
+                  href={SOCIAL_LINKS.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Facebook
+                </a>
+
+                <a
+                  href={SOCIAL_LINKS.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  WhatsApp
+                </a>
+
+                <a
+                  href={SOCIAL_LINKS.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+
+                <a
+                  href={SOCIAL_LINKS.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub
+                </a>
+
               </div>
             </div>
           </div>
 
+          {/* Contact Form */}
           <form className="contact-form" onSubmit={handleSubmit}>
+
             <h3>Contact Me</h3>
 
             <div className="form-group">
@@ -146,17 +211,21 @@ const Contact = () => {
               />
             </div>
 
-            <button type="submit" className="submit-btn" disabled={loading}>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={loading}
+            >
               {loading ? "Sending..." : "Send Message"}
             </button>
 
             {submitted && (
               <div className="success-message">
-                Message sent successfully! 
+                Message sent successfully!
               </div>
             )}
-          </form>
 
+          </form>
         </div>
       </div>
     </section>

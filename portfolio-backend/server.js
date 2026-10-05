@@ -194,7 +194,7 @@ mongoose
   .then(() => {
     console.log("MongoDB Connected");
     console.log("Database: portfolioDB");
-    console.log("Collection: contact");
+    console.log("Collection: contacts");
   })
   .catch((err) => {
     console.error("MongoDB Error:", err);
@@ -231,7 +231,7 @@ const contactSchema = new mongoose.Schema(
     },
   },
   {
-    collection: "contact",
+    collection: "contacts",
   }
 );
 
@@ -288,7 +288,7 @@ app.post("/api/admin/login", (req, res) => {
 // POST /api/contact
 // =========================
 
-app.post("/api/contact", async (req, res) => {
+app.post("/api/contacts", async (req, res) => {
   try {
     const { name, email, message } = req.body;
 

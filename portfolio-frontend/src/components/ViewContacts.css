@@ -1,41 +1,335 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f4f7fb;
+  color: #1f2937;
+}
+
+
+/* =========================
+   LOGIN PAGE
+========================= */
+
 .login-box {
-  width: 300px;
+  width: min(400px, 90%);
   margin: 100px auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
   text-align: center;
+}
+
+.login-box h2 {
+  margin: 10px 0 25px;
+  color: #111827;
+  font-size: 28px;
+}
+
+.login-box form > div {
+  margin-bottom: 15px;
 }
 
 .login-box input {
   width: 100%;
-  padding: 8px;
-  margin: 8px 0;
+  padding: 13px 15px;
+  margin: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  transition: 0.2s ease;
 }
 
-.login-box button {
+.login-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.login-box form button[type="submit"] {
   width: 100%;
-  padding: 8px;
-  background: black;
+  padding: 13px;
+  margin-top: 5px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.2s ease;
 }
+
+.login-box form button[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+.login-box form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+  padding: 9px 15px;
+  background: #111827;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #374151;
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+.error-message {
+  margin-top: 18px;
+  padding: 12px 15px;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+
+/* =========================
+   ADMIN CONTAINER
+========================= */
 
 .admin-container {
-  padding: 20px;
-  background: #f5f5f5;
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 35px 25px 60px;
   min-height: 100vh;
+  background: #f4f7fb;
 }
 
-.card {
-  border: 1px solid #ccc;
-  background: white;
-  padding: 10px;
-  margin: 10px 0;
+.admin-container h2 {
+  margin: 5px 0 30px;
+  font-size: 32px;
+  color: #111827;
 }
-.back-btn {
-  margin-bottom: 10px;
-  padding: 6px 10px;
-  background: black;
+
+
+/* =========================
+   LOGOUT BUTTON
+========================= */
+
+.logout-btn {
+  position: absolute;
+  top: 35px;
+  right: 25px;
+
+  padding: 10px 18px;
+
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
+
   border: none;
+  border-radius: 9px;
+
+  font-size: 14px;
+  font-weight: 600;
+
   cursor: pointer;
+
+  box-shadow: 0 5px 14px rgba(220, 38, 38, 0.25);
+
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.3);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =========================
+   LOADING MESSAGE
+========================= */
+
+.admin-container > p {
+  color: #6b7280;
+}
+
+
+/* =========================
+   CONTACT CARD
+========================= */
+
+.card {
+  position: relative;
+
+  background: #ffffff;
+
+  padding: 22px 24px;
+  margin: 16px 0;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+
+  box-shadow: 0 5px 18px rgba(15, 23, 42, 0.06);
+
+  transition: all 0.25s ease;
+
+  overflow: hidden;
+}
+
+/* Blue line on left side */
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #2563eb,
+    #7c3aed
+  );
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+  border-color: #dbeafe;
+}
+
+
+/* =========================
+   CONTACT TEXT
+========================= */
+
+.card p {
+  margin: 10px 0;
+  line-height: 1.6;
+  color: #4b5563;
+  font-size: 15px;
+}
+
+.card p:first-child {
+  margin-top: 0;
+}
+
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+.card strong {
+  display: inline-block;
+  min-width: 75px;
+  color: #111827;
+  font-weight: 700;
+}
+
+
+/* =========================
+   MESSAGE TEXT
+========================= */
+
+.card p:nth-child(3) {
+  margin-top: 16px;
+  padding: 14px;
+
+  background: #f8fafc;
+
+  border-radius: 9px;
+
+  color: #374151;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+.card p:last-child {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .admin-container {
+    padding: 25px 15px 40px;
+  }
+
+  .admin-container h2 {
+    font-size: 26px;
+    margin-top: 15px;
+    padding-right: 90px;
+  }
+
+  .logout-btn {
+    top: 25px;
+    right: 15px;
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .back-btn {
+    margin-bottom: 15px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
+
+  .card strong {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .login-box {
+    margin: 60px auto;
+    padding: 25px 20px;
+  }
 }

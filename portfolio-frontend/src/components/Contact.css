@@ -1,177 +1,74 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #020617;
+.contact {
+  padding: 70px 0;
+  background:
+    radial-gradient(circle at top, rgba(0, 255, 136, 0.06), transparent 35%),
+    linear-gradient(135deg, #020617, #030712);
   color: #d1fae5;
   font-family: "Courier New", Courier, monospace;
 }
 
-/* =========================
-   ADMIN LOGIN
-========================= */
-
-.login-box {
-  width: min(400px, 90%);
-  margin: 100px auto;
-  padding: 30px;
-  background: rgba(3, 7, 18, 0.95);
-  border: 1px solid #00ff88;
-  border-radius: 8px;
-  box-shadow: 0 0 25px rgba(0, 255, 136, 0.12);
-  text-align: center;
-}
-
-.login-box h2 {
-  color: #00ff88;
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
-}
-
-.login-box input {
-  width: 100%;
-  padding: 12px;
-  margin: 7px 0;
-  background: #020617;
-  color: #00ff88;
-  border: 1px solid #164e63;
-  border-radius: 5px;
-  outline: none;
-  font-family: "Courier New", monospace;
-}
-
-.login-box input:focus {
-  border-color: #00ff88;
-  box-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
-}
-
-.login-box form button[type="submit"] {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  background: transparent;
-  color: #00ff88;
-  border: 1px solid #00ff88;
-  border-radius: 5px;
-  font-family: "Courier New", monospace;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.login-box form button[type="submit"]:hover {
-  background: #00ff88;
-  color: #020617;
-  box-shadow: 0 0 18px rgba(0, 255, 136, 0.3);
-}
-
-/* =========================
-   ADMIN CONTAINER
-========================= */
-
-.admin-container {
-  position: relative;
+.container {
   max-width: 1100px;
-  min-height: 100vh;
   margin: auto;
-  padding: 35px 25px 60px;
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(0, 255, 136, 0.05),
-      transparent 35%
-    ),
-    #020617;
+  padding: 0 16px;
 }
 
-.admin-container h2 {
-  margin: 10px 0 30px;
+.section-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.section-tag {
+  display: inline-block;
+  padding: 6px 16px;
   color: #00ff88;
-  font-size: 30px;
-  text-shadow: 0 0 10px rgba(0, 255, 136, 0.35);
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid #00ff88;
+  border-radius: 5px;
+  font-size: 12px;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.15);
 }
 
-.admin-container h2::before {
+.section-header h2 {
+  margin: 12px 0;
+  color: #00ff88;
+  font-size: 1.9rem;
+  text-shadow: 0 0 12px rgba(0, 255, 136, 0.45);
+}
+
+.section-header h2::before {
   content: "> ";
   color: #00ffff;
 }
 
-/* =========================
-   BACK BUTTON
-========================= */
-
-.back-btn {
-  padding: 8px 14px;
-  margin-bottom: 20px;
-  background: transparent;
-  color: #00ffff;
-  border: 1px solid #00ffff;
-  border-radius: 5px;
-  font-family: "Courier New", monospace;
-  cursor: pointer;
+.section-header p {
+  color: #64748b;
+  font-size: 0.85rem;
 }
 
-.back-btn:hover {
-  background: #00ffff;
-  color: #020617;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.25);
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
 }
 
-/* =========================
-   LOGOUT
-========================= */
-
-.logout-btn {
-  position: absolute;
-  top: 35px;
-  right: 25px;
-  padding: 9px 16px;
-  background: transparent;
-  color: #ff4d6d;
-  border: 1px solid #ff4d6d;
-  border-radius: 5px;
-  font-family: "Courier New", monospace;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.logout-btn:hover {
-  background: #ff4d6d;
-  color: #020617;
-  box-shadow: 0 0 18px rgba(255, 77, 109, 0.3);
-}
-
-/* =========================
-   ERROR
-========================= */
-
-.error-message {
-  padding: 10px;
-  color: #ff4d6d;
-  background: rgba(255, 77, 109, 0.05);
-  border: 1px solid #7f1d1d;
-  border-radius: 5px;
-}
-
-/* =========================
-   CONTACT CARD
-========================= */
-
-.card {
+.contact-info,
+.contact-form {
   position: relative;
-  margin: 16px 0;
-  padding: 22px;
-  background: rgba(3, 7, 18, 0.9);
+  padding: 28px;
+  background: rgba(3, 7, 18, 0.85);
   border: 1px solid #134e4a;
-  border-radius: 7px;
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow:
     0 0 20px rgba(0, 255, 136, 0.04),
     inset 0 0 20px rgba(0, 255, 136, 0.02);
-  overflow: hidden;
-  transition: 0.25s ease;
+  transition: 0.3s ease;
 }
 
-.card::before {
+.contact-info::before,
+.contact-form::before {
   content: "";
   position: absolute;
   left: 0;
@@ -182,121 +79,205 @@ body {
   box-shadow: 0 0 12px #00ff88;
 }
 
-.card:hover {
+.contact-info:hover,
+.contact-form:hover {
   transform: translateY(-3px);
   border-color: #00ff88;
   box-shadow: 0 0 25px rgba(0, 255, 136, 0.12);
 }
 
-/* =========================
-   CONTACT TEXT
-========================= */
-
-.card p {
-  margin: 10px 0;
-  color: #94a3b8;
-  line-height: 1.6;
-  font-size: 14px;
+.contact-info h3,
+.contact-form h3 {
+  margin: 0 0 15px;
+  color: #00ff88;
+  font-size: 1.35rem;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
 }
 
-.card strong {
-  display: inline-block;
-  min-width: 90px;
+.contact-info h3::before,
+.contact-form h3::before {
+  content: "> ";
   color: #00ffff;
 }
 
-/* =========================
-   MESSAGE
-========================= */
+.contact-info > p {
+  margin-bottom: 20px;
+  color: #64748b;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
 
-.card p:nth-child(3) {
-  margin-top: 16px;
-  padding: 14px;
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
   background: #020617;
   border: 1px solid #164e63;
   border-radius: 5px;
+  transition: 0.2s ease;
+}
+
+.contact-item:hover {
+  border-color: #00ffff;
+  transform: translateX(3px);
+}
+
+.contact-item h4 {
+  min-width: 70px;
+  margin: 0;
+  color: #00ffff;
+  font-size: 0.8rem;
+}
+
+.contact-item p,
+.contact-item a {
+  margin: 0;
   color: #d1fae5;
-  white-space: pre-wrap;
+  font-size: 0.85rem;
+  text-decoration: none;
   word-break: break-word;
 }
 
-/* =========================
-   DATE & TIME
-========================= */
-
-.contact-date {
-  padding-top: 12px;
-  margin-top: 15px !important;
-  border-top: 1px solid #164e63;
-  color: #64748b !important;
-  font-size: 12px !important;
-}
-
-.contact-date strong {
+.contact-item a:hover {
   color: #00ff88;
 }
 
-/* =========================
-   DELETE
-========================= */
+.contact-social {
+  margin-top: 25px;
+}
 
-.delete-btn {
-  margin-top: 15px;
-  padding: 8px 15px;
+.contact-social h4 {
+  margin-bottom: 12px;
+  color: #a78bfa;
+  font-size: 0.9rem;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.social-links a {
+  padding: 8px 12px;
+  background: #020617;
+  border: 1px solid #164e63;
+  border-radius: 4px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.social-links a:hover {
+  background: #00ff88;
+  border-color: #00ff88;
+  color: #020617;
+  transform: translateY(-2px);
+}
+
+.form-group {
+  margin-bottom: 13px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  background: #020617;
+  color: #d1fae5;
+  border: 1px solid #164e63;
+  border-radius: 5px;
+  outline: none;
+  font-family: "Courier New", monospace;
+  font-size: 0.85rem;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #475569;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #00ff88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.12);
+}
+
+.form-group textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 11px;
   background: transparent;
-  color: #ff4d6d;
-  border: 1px solid #ff4d6d;
+  color: #00ff88;
+  border: 1px solid #00ff88;
   border-radius: 5px;
   font-family: "Courier New", monospace;
+  font-size: 0.85rem;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.25s ease;
 }
 
-.delete-btn:hover {
-  background: #ff4d6d;
+.submit-btn:hover:not(:disabled) {
+  background: #00ff88;
   color: #020617;
-  box-shadow: 0 0 15px rgba(255, 77, 109, 0.25);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
-.delete-btn:disabled {
+.submit-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.success-message {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(0, 255, 136, 0.05);
+  color: #00ff88;
+  border: 1px solid #166534;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.8rem;
+}
 
-@media (max-width: 600px) {
-  .admin-container {
-    padding: 25px 15px 40px;
+@media (max-width: 768px) {
+  .contact-wrapper {
+    grid-template-columns: 1fr;
   }
 
-  .logout-btn {
-    top: 25px;
-    right: 15px;
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact {
+    padding: 50px 0;
   }
 
-  .admin-container h2 {
-    font-size: 24px;
-    padding-right: 90px;
+  .contact-info,
+  .contact-form {
+    padding: 20px;
   }
 
-  .card {
-    padding: 18px;
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .card strong {
-    display: block;
-    margin-bottom: 3px;
+  .contact-item h4 {
+    min-width: auto;
   }
 
-  .delete-btn {
-    width: 100%;
-  }
-
-  .login-box {
-    margin: 60px auto;
-    padding: 25px 20px;
+  .social-links {
+    justify-content: flex-start;
   }
 }

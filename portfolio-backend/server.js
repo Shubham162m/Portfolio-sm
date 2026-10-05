@@ -329,7 +329,7 @@ app.get("/api/contacts", async (req, res) => {
   try {
     const contacts = await Contact.find()
       .sort({
-        submittedAt: -1,
+         createdAt: -1,
       })
       .lean();
 

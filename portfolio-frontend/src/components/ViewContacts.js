@@ -611,22 +611,22 @@ function ViewContacts() {
 
             {/* STORED SUBMISSION TIME */}
 
-            {item.submittedAt && (
-              <p className="contact-date">
-                <strong>Submitted:</strong>{" "}
-                {new Date(
-                  item.submittedAt
-                ).toLocaleString("en-IN", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                  hour12: true,
-                })}
-              </p>
-            )}
+{item.createdAt && (
+  <div className="contact-date">
+    <strong>Submitted:</strong>{" "}
+    {new Date(item.createdAt).toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    })}
+  </div>
+)}
+
 
             {/* DELETE */}
 

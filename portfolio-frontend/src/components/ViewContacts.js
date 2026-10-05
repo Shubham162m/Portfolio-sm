@@ -9,24 +9,54 @@ function ViewContacts() {
     username: "",
     password: "",
   });
+
   const [loading, setLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  // =========================
+  // Admin Login
+  // =========================
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (
-      login.username === "shubham" &&
-      login.password === "Shubham@123"
-    ) {
+    setLoginLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch(
+        "https://smgalaxy-backend.onrender.com/api/admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(login),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Invalid username or password.");
+        return;
+      }
+
       setIsAdmin(true);
-      setError("");
-    } else {
-      setError("Wrong username or password.");
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Unable to connect to server.");
+    } finally {
+      setLoginLoading(false);
     }
   };
+
+  // =========================
+  // Fetch Contacts
+  // =========================
 
   useEffect(() => {
     if (!isAdmin) {
@@ -39,7 +69,7 @@ function ViewContacts() {
         setError("");
 
         const response = await fetch(
-          "https://smgalaxy-backend.onrender.com/api/contact"
+          "https://smgalaxy-backend.onrender.com/api/contacts"
         );
 
         const data = await response.json();
@@ -50,9 +80,9 @@ function ViewContacts() {
           );
         }
 
-        setContacts(data.contacts || []);
+        setContacts(data);
       } catch (error) {
-        console.error("Error fetching contacts:", error);
+        console.error("Fetch contacts error:", error);
         setError("Unable to load messages.");
       } finally {
         setLoading(false);
@@ -62,27 +92,43 @@ function ViewContacts() {
     fetchContacts();
   }, [isAdmin]);
 
+  // =========================
+  // Logout
+  // =========================
+
   const handleLogout = () => {
     setIsAdmin(false);
+
+    setContacts([]);
 
     setLogin({
       username: "",
       password: "",
     });
 
-    setContacts([]);
+    setError("");
   };
+
+  // =========================
+  // Login Page
+  // =========================
 
   if (!isAdmin) {
     return (
-      <div>
-        <button onClick={() => navigate("/")}>
+      <div className="login-box">
+
+        <button
+          type="button"
+          className="back-btn"
+          onClick={() => navigate("/")}
+        >
           ← Back
         </button>
 
         <h2>Admin Login</h2>
 
         <form onSubmit={handleLogin}>
+
           <div>
             <input
               type="text"
@@ -113,59 +159,95 @@ function ViewContacts() {
             />
           </div>
 
-          <button type="submit">
-            Login
+          <button
+            type="submit"
+            disabled={loginLoading}
+          >
+            {loginLoading ? "Logging in..." : "Login"}
           </button>
+
         </form>
 
-        {error && <p>{error}</p>}
+        {error && (
+          <p className="error-message">
+            {error}
+          </p>
+        )}
+
       </div>
     );
   }
 
+  // =========================
+  // Admin Messages Page
+  // =========================
+
   return (
-    <div>
-      <button onClick={() => navigate("/")}>
+    <div className="admin-container">
+
+      <button
+        type="button"
+        className="back-btn"
+        onClick={() => navigate("/")}
+      >
         ← Back
       </button>
 
-      <button onClick={handleLogout}>
+      <button
+        type="button"
+        className="logout-btn"
+        onClick={handleLogout}
+      >
         Logout
       </button>
 
       <h2>Messages</h2>
 
-      {loading && <p>Loading messages...</p>}
+      {loading && (
+        <p>Loading messages...</p>
+      )}
 
-      {error && <p>{error}</p>}
-
-      {!loading && !error && contacts.length === 0 && (
-        <p>No messages found.</p>
+      {error && (
+        <p className="error-message">
+          {error}
+        </p>
       )}
 
       {!loading &&
+        !error &&
+        contacts.length === 0 && (
+          <p>No messages found.</p>
+        )}
+
+      {!loading &&
         contacts.map((item) => (
-          <div key={item._id}>
+          <div
+            key={item._id}
+            className="card"
+          >
             <p>
-              <strong>Name:</strong> {item.name}
+              <strong>Name:</strong>{" "}
+              {item.name}
             </p>
 
             <p>
-              <strong>Email:</strong> {item.email}
+              <strong>Email:</strong>{" "}
+              {item.email}
             </p>
 
             <p>
-              <strong>Message:</strong> {item.message}
+              <strong>Message:</strong>{" "}
+              {item.message}
             </p>
 
-            {item.createdAt && (
+            {item.submittedAt && (
               <p>
                 <strong>Date:</strong>{" "}
-                {new Date(item.createdAt).toLocaleString()}
+                {new Date(
+                  item.submittedAt
+                ).toLocaleString()}
               </p>
             )}
-
-            <hr />
           </div>
         ))}
     </div>

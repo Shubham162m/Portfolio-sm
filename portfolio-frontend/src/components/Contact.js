@@ -2,27 +2,16 @@ import React, { useState } from "react";
 import "./Contact.css";
 
 function Contact() {
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
 
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  const YOUR_INFO = {
-    name: "Modi Shubham",
-    title: "B-Tech Student",
-    email: "modishubham162@gmail.com",
-    phone: "+91 9265706957",
-    location: "Vadgam, Palanpur, Gujarat, India",
-    introText:
-      "Have a project in mind? I'd love to hear about it. Send me a message and I'll get back to you within 24 hours.",
-  };
-
-  const SOCIAL_LINKS = {
+  const social = {
     instagram: "https://www.instagram.com/smodi._20/",
     facebook: "https://www.facebook.com/shubham.modi.33483",
     whatsapp: "https://wa.me/qr/URLGP4CNTE23M1",
@@ -30,60 +19,30 @@ function Contact() {
     github: "https://github.com/Shubham162m",
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const change = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-    setFormData((previousData) => ({
-      ...previousData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-    setSubmitted(false);
-    setError("");
+    setSuccess(false);
 
     try {
-      const response = await fetch(
+      const res = await fetch(
         "https://smgalaxy-backend.onrender.com/api/contact",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
         }
       );
 
-      const data = await response.json();
+      if (!res.ok) throw new Error();
 
-      if (!response.ok) {
-        throw new Error(
-          data.message || "Failed to send message."
-        );
-      }
-
-      setSubmitted(true);
-
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
-
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 3000);
-    } catch (error) {
-      console.error("Contact form error:", error);
-
-      setError(
-        error.message ||
-          "Unable to connect to the server."
-      );
+      setForm({ name: "", email: "", message: "" });
+      setSuccess(true);
+    } catch {
+      alert("Unable to send message.");
     } finally {
       setLoading(false);
     }
@@ -94,167 +53,82 @@ function Contact() {
       <div className="container">
         <div className="contact-wrapper">
 
-          {/* Contact Information */}
           <div className="contact-info">
-
             <h3>Let's Talk</h3>
-
             <p>
-              {YOUR_INFO.introText}
+              Have a project in mind? I'd love to hear about it.
+              Send me a message and I'll get back to you within 24 hours.
             </p>
 
-            <div className="contact-details">
+            <h4>Email</h4>
+            <a href="mailto:modishubham162@gmail.com">
+              modishubham162@gmail.com
+            </a>
 
-              <div className="contact-item">
-                <h4>Email</h4>
+            <h4>Phone</h4>
+            <a href="tel:+919265706957">
+              +91 9265706957
+            </a>
 
+            <h4>Location</h4>
+            <p>Vadgam, Palanpur, Gujarat, India</p>
+
+            <h4>Follow Me</h4>
+
+            <div className="social-links">
+              {Object.entries(social).map(([name, url]) => (
                 <a
-                  href={`mailto:${YOUR_INFO.email}`}
-                >
-                  {YOUR_INFO.email}
-                </a>
-              </div>
-
-              <div className="contact-item">
-                <h4>Phone</h4>
-
-                <a
-                  href={`tel:${YOUR_INFO.phone}`}
-                >
-                  {YOUR_INFO.phone}
-                </a>
-              </div>
-
-              <div className="contact-item">
-                <h4>Location</h4>
-
-                <p>
-                  {YOUR_INFO.location}
-                </p>
-              </div>
-
-            </div>
-
-            {/* Social Links */}
-            <div className="contact-social">
-
-              <h4>Follow Me</h4>
-
-              <div className="social-links">
-
-                <a
-                  href={SOCIAL_LINKS.instagram}
+                  key={name}
+                  href={url}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Instagram
+                  {name}
                 </a>
-
-                <a
-                  href={SOCIAL_LINKS.facebook}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Facebook
-                </a>
-
-                <a
-                  href={SOCIAL_LINKS.whatsapp}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  WhatsApp
-                </a>
-
-                <a
-                  href={SOCIAL_LINKS.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn
-                </a>
-
-                <a
-                  href={SOCIAL_LINKS.github}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub
-                </a>
-
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Contact Form */}
           <form
             className="contact-form"
-            onSubmit={handleSubmit}
+            onSubmit={submit}
           >
-
             <h3>Contact Me</h3>
 
-            <div className="form-group">
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={form.name}
+              onChange={change}
+              required
+            />
 
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={form.email}
+              onChange={change}
+              required
+            />
 
-            </div>
+            <textarea
+              name="message"
+              placeholder="Tell me about your project..."
+              rows="5"
+              value={form.message}
+              onChange={change}
+              required
+            />
 
-            <div className="form-group">
-
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-
-            </div>
-
-            <div className="form-group">
-
-              <textarea
-                name="message"
-                placeholder="Tell me about your project..."
-                rows="5"
-                value={formData.message}
-                onChange={handleChange}
-                required
-              />
-
-            </div>
-
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={loading}
-            >
-              {loading
-                ? "Sending..."
-                : "Send Message"}
+            <button type="submit" disabled={loading}>
+              {loading ? "Sending..." : "Send Message"}
             </button>
 
-            {submitted && (
-              <p className="success-message">
-                Message sent successfully!
-              </p>
+            {success && (
+              <p>Message sent successfully!</p>
             )}
-
-            {error && (
-              <p className="error-message">
-                {error}
-              </p>
-            )}
-
           </form>
 
         </div>

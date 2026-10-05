@@ -192,12 +192,16 @@ mongoose
     dbName: "portfolioDB",
   })
   .then(() => {
-    console.log("MongoDB Connected");
-    console.log("Database: portfolioDB");
-    console.log("Collection: contacts");
+    console.log(" MongoDB Connected");
+    console.log(" Database: portfolioDB");
+    console.log(" Collection: contacts");
+
+    app.listen(PORT, () => {
+      console.log(` Server running on port ${PORT}`);
+    });
   })
   .catch((err) => {
-    console.error("MongoDB Error:", err);
+    console.error(" MongoDB Connection Error:", err.message);
   });
 
 // =========================

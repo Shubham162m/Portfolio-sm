@@ -288,14 +288,22 @@ body {
 
 
 /* =========================
-   DATE
+   CONTACT DATE & TIME
 ========================= */
 
-.card p:last-child {
-  font-size: 13px;
-  color: #9ca3af;
+.contact-date {
+  margin-top: 15px !important;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+
+  color: #6b7280 !important;
+  font-size: 13px !important;
 }
 
+.contact-date strong {
+  color: #374151;
+  font-weight: 600;
+}
 
 /* =========================
    DELETE BUTTON

@@ -237,9 +237,9 @@ const contactSchema = new mongoose.Schema(
 
 // Explicitly use "contact" collection
 const Contact = mongoose.model(
-  "Contact",
+  "Contacts",
   contactSchema,
-  "contact"
+  "contacts"
 );
 
 // =========================

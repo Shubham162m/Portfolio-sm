@@ -209,6 +209,7 @@ body {
   overflow: hidden;
 }
 
+
 /* Blue line on left side */
 
 .card::before {
@@ -218,6 +219,7 @@ body {
   top: 0;
   width: 4px;
   height: 100%;
+
   background: linear-gradient(
     to bottom,
     #2563eb,
@@ -225,9 +227,15 @@ body {
   );
 }
 
+
+/* Card hover */
+
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+
+  box-shadow:
+    0 12px 28px rgba(15, 23, 42, 0.1);
+
   border-color: #dbeafe;
 }
 
@@ -254,6 +262,7 @@ body {
 .card strong {
   display: inline-block;
   min-width: 75px;
+
   color: #111827;
   font-weight: 700;
 }
@@ -289,53 +298,6 @@ body {
 
 
 /* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-  .admin-container {
-    padding: 25px 15px 40px;
-  }
-
-  .admin-container h2 {
-    font-size: 26px;
-    margin-top: 15px;
-    padding-right: 90px;
-  }
-
-  .logout-btn {
-    top: 25px;
-    right: 15px;
-    padding: 9px 13px;
-    font-size: 13px;
-  }
-
-  .back-btn {
-    margin-bottom: 15px;
-  }
-
-  .card {
-    padding: 18px;
-  }
-
-  .card p {
-    font-size: 14px;
-  }
-
-  .card strong {
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .login-box {
-    margin: 60px auto;
-    padding: 25px 20px;
-  }
-
-}
-
-/* =========================
    DELETE BUTTON
 ========================= */
 
@@ -361,23 +323,90 @@ body {
   transition: all 0.2s ease;
 }
 
+
+/* Delete hover */
+
 .delete-btn:hover {
   background: #dc2626;
-  color: white;
+  color: #ffffff;
   border-color: #dc2626;
 
   transform: translateY(-1px);
 
-  box-shadow: 0 5px 12px rgba(220, 38, 38, 0.2);
+  box-shadow:
+    0 5px 12px rgba(220, 38, 38, 0.2);
 }
+
+
+/* Delete click */
 
 .delete-btn:active {
   transform: translateY(0);
 }
 
+
+/* Delete loading / disabled */
+
 .delete-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+
   transform: none;
+
   box-shadow: none;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .admin-container {
+    padding: 25px 15px 40px;
+  }
+
+  .admin-container h2 {
+    font-size: 26px;
+    margin-top: 15px;
+    padding-right: 90px;
+  }
+
+  .logout-btn {
+    top: 25px;
+    right: 15px;
+
+    padding: 9px 13px;
+
+    font-size: 13px;
+  }
+
+  .back-btn {
+    margin-bottom: 15px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
+
+  .card strong {
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .delete-btn {
+    width: 100%;
+    margin-top: 16px;
+    padding: 11px;
+  }
+
+  .login-box {
+    margin: 60px auto;
+    padding: 25px 20px;
+  }
 }

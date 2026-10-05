@@ -92,6 +92,52 @@ function ViewContacts() {
     fetchContacts();
   }, [isAdmin]);
 
+    // =========================
+  // Delete Contact
+  // =========================
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this message?"
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    try {
+      setDeleteLoading(id);
+      setError("");
+
+      const response = await fetch(
+        `https://smgalaxy-backend.onrender.com/api/contacts/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Failed to delete contact."
+        );
+      }
+
+      // Remove deleted contact from the screen
+      setContacts((prevContacts) =>
+        prevContacts.filter(
+          (contact) => contact._id !== id
+        )
+      );
+    } catch (error) {
+      console.error("Delete contact error:", error);
+      setError("Unable to delete message.");
+    } finally {
+      setDeleteLoading(null);
+    }
+  };
+
   // =========================
   // Logout
   // =========================
@@ -248,6 +294,18 @@ function ViewContacts() {
                 ).toLocaleString()}
               </p>
             )}
+
+              {/* DELETE BUTTON */}
+            <button
+              type="button"
+              className="delete-btn"
+              onClick={() => handleDelete(item._id)}
+              disabled={deleteLoading === item._id}
+            >
+              {deleteLoading === item._id
+                ? "Deleting..."
+                : "Delete"}
+            </button>
           </div>
         ))}
     </div>

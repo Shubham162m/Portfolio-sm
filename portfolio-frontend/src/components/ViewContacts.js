@@ -1,3 +1,321 @@
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import "./ViewContacts.css";
+
+// function ViewContacts() {
+//   const [isAdmin, setIsAdmin] = useState(false);
+//   const [contacts, setContacts] = useState([]);
+//   const [login, setLogin] = useState({
+//     username: "",
+//     password: "",
+//   });
+
+//   const [loading, setLoading] = useState(false);
+//   const [loginLoading, setLoginLoading] = useState(false);
+//   const [error, setError] = useState("");
+
+//   const navigate = useNavigate();
+
+//   // =========================
+//   // Admin Login
+//   // =========================
+
+//   const handleLogin = async (e) => {
+//     e.preventDefault();
+
+//     setLoginLoading(true);
+//     setError("");
+
+//     try {
+//       const response = await fetch(
+//         "https://smgalaxy-backend.onrender.com/api/admin/login",
+//         {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify(login),
+//         }
+//       );
+
+//       const data = await response.json();
+
+//       if (!response.ok) {
+//         setError(data.message || "Invalid username or password.");
+//         return;
+//       }
+
+//       setIsAdmin(true);
+//     } catch (error) {
+//       console.error("Login error:", error);
+//       setError("Unable to connect to server.");
+//     } finally {
+//       setLoginLoading(false);
+//     }
+//   };
+
+//   // =========================
+//   // Fetch Contacts
+//   // =========================
+
+//   useEffect(() => {
+//     if (!isAdmin) {
+//       return;
+//     }
+
+//     const fetchContacts = async () => {
+//       try {
+//         setLoading(true);
+//         setError("");
+
+//         const response = await fetch(
+//           "https://smgalaxy-backend.onrender.com/api/contacts"
+//         );
+
+//         const data = await response.json();
+
+//         if (!response.ok) {
+//           throw new Error(
+//             data.message || "Failed to fetch contacts."
+//           );
+//         }
+
+//         setContacts(data);
+//       } catch (error) {
+//         console.error("Fetch contacts error:", error);
+//         setError("Unable to load messages.");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchContacts();
+//   }, [isAdmin]);
+
+//     // =========================
+//   // Delete Contact
+//   // =========================
+
+//   const handleDelete = async (id) => {
+//     const confirmDelete = window.confirm(
+//       "Are you sure you want to delete this message?"
+//     );
+
+//     if (!confirmDelete) {
+//       return;
+//     }
+
+//     try {
+//       setDeleteLoading(id);
+//       setError("");
+
+//       const response = await fetch(
+//         `https://smgalaxy-backend.onrender.com/api/contacts/${id}`,
+//         {
+//           method: "DELETE",
+//         }
+//       );
+
+//       const data = await response.json();
+
+//       if (!response.ok) {
+//         throw new Error(
+//           data.message || "Failed to delete contact."
+//         );
+//       }
+
+//       // Remove deleted contact from the screen
+//       setContacts((prevContacts) =>
+//         prevContacts.filter(
+//           (contact) => contact._id !== id
+//         )
+//       );
+//     } catch (error) {
+//       console.error("Delete contact error:", error);
+//       setError("Unable to delete message.");
+//     } finally {
+//       setDeleteLoading(null);
+//     }
+//   };
+
+//   // =========================
+//   // Logout
+//   // =========================
+
+//   const handleLogout = () => {
+//     setIsAdmin(false);
+
+//     setContacts([]);
+
+//     setLogin({
+//       username: "",
+//       password: "",
+//     });
+
+//     setError("");
+//   };
+
+//   // =========================
+//   // Login Page
+//   // =========================
+
+//   if (!isAdmin) {
+//     return (
+//       <div className="login-box">
+
+//         <button
+//           type="button"
+//           className="back-btn"
+//           onClick={() => navigate("/")}
+//         >
+//           ← Back
+//         </button>
+
+//         <h2>Admin Login</h2>
+
+//         <form onSubmit={handleLogin}>
+
+//           <div>
+//             <input
+//               type="text"
+//               placeholder="Username"
+//               value={login.username}
+//               onChange={(e) =>
+//                 setLogin({
+//                   ...login,
+//                   username: e.target.value,
+//                 })
+//               }
+//               required
+//             />
+//           </div>
+
+//           <div>
+//             <input
+//               type="password"
+//               placeholder="Password"
+//               value={login.password}
+//               onChange={(e) =>
+//                 setLogin({
+//                   ...login,
+//                   password: e.target.value,
+//                 })
+//               }
+//               required
+//             />
+//           </div>
+
+//           <button
+//             type="submit"
+//             disabled={loginLoading}
+//           >
+//             {loginLoading ? "Logging in..." : "Login"}
+//           </button>
+
+//         </form>
+
+//         {error && (
+//           <p className="error-message">
+//             {error}
+//           </p>
+//         )}
+
+//       </div>
+//     );
+//   }
+
+//   // =========================
+//   // Admin Messages Page
+//   // =========================
+
+//   return (
+//     <div className="admin-container">
+
+//       <button
+//         type="button"
+//         className="back-btn"
+//         onClick={() => navigate("/")}
+//       >
+//         ← Back
+//       </button>
+
+//       <button
+//         type="button"
+//         className="logout-btn"
+//         onClick={handleLogout}
+//       >
+//         Logout
+//       </button>
+
+//       <h2>Messages</h2>
+
+//       {loading && (
+//         <p>Loading messages...</p>
+//       )}
+
+//       {error && (
+//         <p className="error-message">
+//           {error}
+//         </p>
+//       )}
+
+//       {!loading &&
+//         !error &&
+//         contacts.length === 0 && (
+//           <p>No messages found.</p>
+//         )}
+
+//       {!loading &&
+//         contacts.map((item) => (
+//           <div
+//             key={item._id}
+//             className="card"
+//           >
+//             <p>
+//               <strong>Name:</strong>{" "}
+//               {item.name}
+//             </p>
+
+//             <p>
+//               <strong>Email:</strong>{" "}
+//               {item.email}
+//             </p>
+
+//             <p>
+//               <strong>Message:</strong>{" "}
+//               {item.message}
+//             </p>
+
+//             {item.submittedAt && (
+//               <p>
+//                 <strong>Date:</strong>{" "}
+//                 {new Date(
+//                   item.submittedAt
+//                 ).toLocaleString()}
+//               </p>
+//             )}
+
+//               {/* DELETE BUTTON */}
+//             <button
+//               type="button"
+//               className="delete-btn"
+//               onClick={() => handleDelete(item._id)}
+//               disabled={deleteLoading === item._id}
+//             >
+//               {deleteLoading === item._id
+//                 ? "Deleting..."
+//                 : "Delete"}
+//             </button>
+//           </div>
+//         ))}
+//     </div>
+//   );
+// }
+
+// export default ViewContacts;
+
+
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ViewContacts.css";
@@ -5,6 +323,7 @@ import "./ViewContacts.css";
 function ViewContacts() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [contacts, setContacts] = useState([]);
+
   const [login, setLogin] = useState({
     username: "",
     password: "",
@@ -12,6 +331,10 @@ function ViewContacts() {
 
   const [loading, setLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
+
+  // Delete loading state
+  const [deleteLoading, setDeleteLoading] = useState(null);
+
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -41,7 +364,9 @@ function ViewContacts() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.message || "Invalid username or password.");
+        setError(
+          data.message || "Invalid username or password."
+        );
         return;
       }
 
@@ -82,7 +407,11 @@ function ViewContacts() {
 
         setContacts(data);
       } catch (error) {
-        console.error("Fetch contacts error:", error);
+        console.error(
+          "Fetch contacts error:",
+          error
+        );
+
         setError("Unable to load messages.");
       } finally {
         setLoading(false);
@@ -92,7 +421,7 @@ function ViewContacts() {
     fetchContacts();
   }, [isAdmin]);
 
-    // =========================
+  // =========================
   // Delete Contact
   // =========================
 
@@ -131,7 +460,11 @@ function ViewContacts() {
         )
       );
     } catch (error) {
-      console.error("Delete contact error:", error);
+      console.error(
+        "Delete contact error:",
+        error
+      );
+
       setError("Unable to delete message.");
     } finally {
       setDeleteLoading(null);
@@ -153,6 +486,7 @@ function ViewContacts() {
     });
 
     setError("");
+    setDeleteLoading(null);
   };
 
   // =========================
@@ -209,7 +543,9 @@ function ViewContacts() {
             type="submit"
             disabled={loginLoading}
           >
-            {loginLoading ? "Logging in..." : "Login"}
+            {loginLoading
+              ? "Logging in..."
+              : "Login"}
           </button>
 
         </form>
@@ -231,6 +567,8 @@ function ViewContacts() {
   return (
     <div className="admin-container">
 
+      {/* Back Button */}
+
       <button
         type="button"
         className="back-btn"
@@ -238,6 +576,8 @@ function ViewContacts() {
       >
         ← Back
       </button>
+
+      {/* Logout Button */}
 
       <button
         type="button"
@@ -249,9 +589,13 @@ function ViewContacts() {
 
       <h2>Messages</h2>
 
+      {/* Loading */}
+
       {loading && (
         <p>Loading messages...</p>
       )}
+
+      {/* Error */}
 
       {error && (
         <p className="error-message">
@@ -259,11 +603,15 @@ function ViewContacts() {
         </p>
       )}
 
+      {/* No Messages */}
+
       {!loading &&
         !error &&
         contacts.length === 0 && (
           <p>No messages found.</p>
         )}
+
+      {/* Contact Cards */}
 
       {!loading &&
         contacts.map((item) => (
@@ -271,20 +619,29 @@ function ViewContacts() {
             key={item._id}
             className="card"
           >
+
+            {/* Name */}
+
             <p>
               <strong>Name:</strong>{" "}
               {item.name}
             </p>
+
+            {/* Email */}
 
             <p>
               <strong>Email:</strong>{" "}
               {item.email}
             </p>
 
+            {/* Message */}
+
             <p>
               <strong>Message:</strong>{" "}
               {item.message}
             </p>
+
+            {/* Date */}
 
             {item.submittedAt && (
               <p>
@@ -295,17 +652,23 @@ function ViewContacts() {
               </p>
             )}
 
-              {/* DELETE BUTTON */}
+            {/* Delete Button */}
+
             <button
               type="button"
               className="delete-btn"
-              onClick={() => handleDelete(item._id)}
-              disabled={deleteLoading === item._id}
+              onClick={() =>
+                handleDelete(item._id)
+              }
+              disabled={
+                deleteLoading === item._id
+              }
             >
               {deleteLoading === item._id
                 ? "Deleting..."
                 : "Delete"}
             </button>
+
           </div>
         ))}
     </div>
@@ -313,3 +676,4 @@ function ViewContacts() {
 }
 
 export default ViewContacts;
+

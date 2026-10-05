@@ -1,130 +1,177 @@
-/* =========================
-   ADMIN PAGE ONLY
-========================= */
+* {
+  box-sizing: border-box;
+}
 
-.admin-container {
-  position: relative;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 30px 25px 60px;
-  min-height: 100vh;
+body {
+  margin: 0;
   background: #020617;
   color: #d1fae5;
   font-family: "Courier New", Courier, monospace;
 }
 
-/* ADMIN TITLE */
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+.login-box {
+  width: min(400px, 90%);
+  margin: 100px auto;
+  padding: 30px;
+  background: rgba(3, 7, 18, 0.95);
+  border: 1px solid #00ff88;
+  border-radius: 8px;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.12);
+  text-align: center;
+}
+
+.login-box h2 {
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0;
+  background: #020617;
+  color: #00ff88;
+  border: 1px solid #164e63;
+  border-radius: 5px;
+  outline: none;
+  font-family: "Courier New", monospace;
+}
+
+.login-box input:focus {
+  border-color: #00ff88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
+}
+
+.login-box form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: transparent;
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  border-radius: 5px;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-box form button[type="submit"]:hover {
+  background: #00ff88;
+  color: #020617;
+  box-shadow: 0 0 18px rgba(0, 255, 136, 0.3);
+}
+
+/* =========================
+   ADMIN CONTAINER
+========================= */
+
+.admin-container {
+  position: relative;
+  max-width: 1100px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 35px 25px 60px;
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(0, 255, 136, 0.05),
+      transparent 35%
+    ),
+    #020617;
+}
 
 .admin-container h2 {
-  margin: 5px 0 30px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #064e3b;
+  margin: 10px 0 30px;
   color: #00ff88;
-  font-family: "Courier New", monospace;
   font-size: 30px;
-  text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.35);
 }
 
 .admin-container h2::before {
-  content: "[SYSTEM] ";
+  content: "> ";
   color: #00ffff;
-  font-size: 16px;
 }
 
-/* BACK BUTTON */
+/* =========================
+   BACK BUTTON
+========================= */
 
-.admin-container .back-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 13px;
+.back-btn {
+  padding: 8px 14px;
   margin-bottom: 20px;
-  background: #020617;
+  background: transparent;
   color: #00ffff;
-  border: 1px solid #0891b2;
+  border: 1px solid #00ffff;
   border-radius: 5px;
   font-family: "Courier New", monospace;
-  font-size: 13px;
-  font-weight: bold;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.admin-container .back-btn:hover {
+.back-btn:hover {
   background: #00ffff;
   color: #020617;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.25);
 }
 
-/* LOGOUT */
+/* =========================
+   LOGOUT
+========================= */
 
-.admin-container .logout-btn {
+.logout-btn {
   position: absolute;
-  top: 30px;
+  top: 35px;
   right: 25px;
   padding: 9px 16px;
   background: transparent;
-  color: #ff5555;
-  border: 1px solid #dc2626;
+  color: #ff4d6d;
+  border: 1px solid #ff4d6d;
   border-radius: 5px;
   font-family: "Courier New", monospace;
-  font-size: 13px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.admin-container .logout-btn::before {
-  content: "[ ";
+.logout-btn:hover {
+  background: #ff4d6d;
+  color: #020617;
+  box-shadow: 0 0 18px rgba(255, 77, 109, 0.3);
 }
 
-.admin-container .logout-btn::after {
-  content: " ]";
-}
+/* =========================
+   ERROR
+========================= */
 
-.admin-container .logout-btn:hover {
-  background: #dc2626;
-  color: white;
-  box-shadow: 0 0 18px rgba(220, 38, 38, 0.4);
-}
-
-/* LOADING */
-
-.admin-container > p {
-  color: #64748b;
-  font-family: "Courier New", monospace;
-}
-
-/* ERROR */
-
-.admin-container .error-message {
-  margin: 18px 0;
-  padding: 12px;
-  background: rgba(127, 29, 29, 0.25);
-  color: #ff5555;
-  border: 1px solid #dc2626;
+.error-message {
+  padding: 10px;
+  color: #ff4d6d;
+  background: rgba(255, 77, 109, 0.05);
+  border: 1px solid #7f1d1d;
   border-radius: 5px;
-  font-family: "Courier New", monospace;
 }
 
-/* CONTACT CARD */
+/* =========================
+   CONTACT CARD
+========================= */
 
-.admin-container .card {
+.card {
   position: relative;
-  margin: 18px 0;
-  padding: 20px 22px;
-  background: #030712;
+  margin: 16px 0;
+  padding: 22px;
+  background: rgba(3, 7, 18, 0.9);
   border: 1px solid #134e4a;
   border-radius: 7px;
   box-shadow:
-    0 0 15px rgba(0, 255, 136, 0.04),
+    0 0 20px rgba(0, 255, 136, 0.04),
     inset 0 0 20px rgba(0, 255, 136, 0.02);
   overflow: hidden;
   transition: 0.25s ease;
 }
 
-/* GREEN SIDE LINE */
-
-.admin-container .card::before {
+.card::before {
   content: "";
   position: absolute;
   left: 0;
@@ -135,172 +182,121 @@
   box-shadow: 0 0 12px #00ff88;
 }
 
-/* CARD HOVER */
-
-.admin-container .card:hover {
+.card:hover {
+  transform: translateY(-3px);
   border-color: #00ff88;
-  transform: translateY(-2px);
-  box-shadow:
-    0 0 20px rgba(0, 255, 136, 0.1),
-    inset 0 0 20px rgba(0, 255, 136, 0.03);
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.12);
 }
 
-/* CONTACT INFORMATION */
+/* =========================
+   CONTACT TEXT
+========================= */
 
-.admin-container .card p {
-  margin: 0;
-  padding: 10px 0;
-  border-bottom: 1px dashed #164e63;
+.card p {
+  margin: 10px 0;
   color: #94a3b8;
-  font-family: "Courier New", monospace;
-  font-size: 14px;
   line-height: 1.6;
+  font-size: 14px;
 }
 
-.admin-container .card p:last-of-type {
-  border-bottom: none;
-}
-
-/* LABELS */
-
-.admin-container .card strong {
+.card strong {
   display: inline-block;
-  min-width: 120px;
+  min-width: 90px;
   color: #00ffff;
-  font-weight: bold;
 }
 
-.admin-container .card strong::before {
-  content: "> ";
-  color: #00ff88;
-}
+/* =========================
+   MESSAGE
+========================= */
 
-/* MESSAGE */
-
-.admin-container .card p:nth-child(3) {
-  margin-top: 0;
+.card p:nth-child(3) {
+  margin-top: 16px;
   padding: 14px;
   background: #020617;
   border: 1px solid #164e63;
-  border-radius: 4px;
+  border-radius: 5px;
   color: #d1fae5;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
-.admin-container .card p:nth-child(3) strong {
-  display: block;
-  margin-bottom: 6px;
-}
+/* =========================
+   DATE & TIME
+========================= */
 
-/* SUBMITTED TIME */
-
-.admin-container .contact-date {
-  margin-top: 0 !important;
-  padding: 11px 0 !important;
+.contact-date {
+  padding-top: 12px;
+  margin-top: 15px !important;
+  border-top: 1px solid #164e63;
   color: #64748b !important;
   font-size: 12px !important;
 }
 
-.admin-container .contact-date strong {
-  color: #a78bfa;
+.contact-date strong {
+  color: #00ff88;
 }
 
-.admin-container .contact-date::after {
-  content: " [TIMESTAMP]";
-  color: #475569;
-  font-size: 10px;
-}
+/* =========================
+   DELETE
+========================= */
 
-/* DELETE */
-
-.admin-container .delete-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 16px;
+.delete-btn {
+  margin-top: 15px;
   padding: 8px 15px;
   background: transparent;
-  color: #ff5555;
-  border: 1px solid #dc2626;
+  color: #ff4d6d;
+  border: 1px solid #ff4d6d;
   border-radius: 5px;
   font-family: "Courier New", monospace;
-  font-size: 13px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.admin-container .delete-btn::before {
-  content: "[X] ";
+.delete-btn:hover {
+  background: #ff4d6d;
+  color: #020617;
+  box-shadow: 0 0 15px rgba(255, 77, 109, 0.25);
 }
 
-.admin-container .delete-btn:hover {
-  background: #dc2626;
-  color: white;
-  box-shadow: 0 0 15px rgba(220, 38, 38, 0.35);
-}
-
-.admin-container .delete-btn:disabled {
-  opacity: 0.45;
+.delete-btn:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-/* ADMIN FOOTER */
-
-.admin-container::after {
-  content: "SYSTEM ONLINE // CONTACT DATABASE // ACCESS GRANTED";
-  display: block;
-  margin-top: 30px;
-  padding-top: 15px;
-  border-top: 1px solid #064e3b;
-  color: #166534;
-  font-family: "Courier New", monospace;
-  font-size: 10px;
-  letter-spacing: 1px;
-}
-
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
   .admin-container {
-    padding: 25px 14px 40px;
+    padding: 25px 15px 40px;
+  }
+
+  .logout-btn {
+    top: 25px;
+    right: 15px;
   }
 
   .admin-container h2 {
-    padding-right: 100px;
-    font-size: 22px;
+    font-size: 24px;
+    padding-right: 90px;
   }
 
-  .admin-container h2::before {
+  .card {
+    padding: 18px;
+  }
+
+  .card strong {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
   }
 
-  .admin-container .logout-btn {
-    top: 25px;
-    right: 14px;
-    padding: 8px 11px;
-    font-size: 11px;
-  }
-
-  .admin-container .card {
-    padding: 16px;
-  }
-
-  .admin-container .card p {
-    font-size: 13px;
-  }
-
-  .admin-container .card strong {
-    display: block;
-    min-width: 0;
-    margin-bottom: 4px;
-  }
-
-  .admin-container .delete-btn {
+  .delete-btn {
     width: 100%;
-    padding: 10px;
+  }
+
+  .login-box {
+    margin: 60px auto;
+    padding: 25px 20px;
   }
 }

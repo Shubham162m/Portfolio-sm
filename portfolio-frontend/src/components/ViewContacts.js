@@ -331,10 +331,7 @@ function ViewContacts() {
 
   const [loading, setLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
-
-  // Delete loading state
   const [deleteLoading, setDeleteLoading] = useState(null);
-
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -453,7 +450,6 @@ function ViewContacts() {
         );
       }
 
-      // Remove deleted contact from the screen
       setContacts((prevContacts) =>
         prevContacts.filter(
           (contact) => contact._id !== id
@@ -477,7 +473,6 @@ function ViewContacts() {
 
   const handleLogout = () => {
     setIsAdmin(false);
-
     setContacts([]);
 
     setLogin({
@@ -496,7 +491,6 @@ function ViewContacts() {
   if (!isAdmin) {
     return (
       <div className="login-box">
-
         <button
           type="button"
           className="back-btn"
@@ -508,7 +502,6 @@ function ViewContacts() {
         <h2>Admin Login</h2>
 
         <form onSubmit={handleLogin}>
-
           <div>
             <input
               type="text"
@@ -547,7 +540,6 @@ function ViewContacts() {
               ? "Logging in..."
               : "Login"}
           </button>
-
         </form>
 
         {error && (
@@ -555,7 +547,6 @@ function ViewContacts() {
             {error}
           </p>
         )}
-
       </div>
     );
   }
@@ -566,9 +557,6 @@ function ViewContacts() {
 
   return (
     <div className="admin-container">
-
-      {/* Back Button */}
-
       <button
         type="button"
         className="back-btn"
@@ -576,8 +564,6 @@ function ViewContacts() {
       >
         ← Back
       </button>
-
-      {/* Logout Button */}
 
       <button
         type="button"
@@ -589,13 +575,9 @@ function ViewContacts() {
 
       <h2>Messages</h2>
 
-      {/* Loading */}
-
       {loading && (
         <p>Loading messages...</p>
       )}
-
-      {/* Error */}
 
       {error && (
         <p className="error-message">
@@ -603,15 +585,11 @@ function ViewContacts() {
         </p>
       )}
 
-      {/* No Messages */}
-
       {!loading &&
         !error &&
         contacts.length === 0 && (
           <p>No messages found.</p>
         )}
-
-      {/* Contact Cards */}
 
       {!loading &&
         contacts.map((item) => (
@@ -619,46 +597,38 @@ function ViewContacts() {
             key={item._id}
             className="card"
           >
-
-            {/* Name */}
-
             <p>
-              <strong>Name:</strong>{" "}
-              {item.name}
+              <strong>Name:</strong> {item.name}
             </p>
 
-            {/* Email */}
-
             <p>
-              <strong>Email:</strong>{" "}
-              {item.email}
+              <strong>Email:</strong> {item.email}
             </p>
 
-            {/* Message */}
-
             <p>
-              <strong>Message:</strong>{" "}
-              {item.message}
+              <strong>Message:</strong> {item.message}
             </p>
 
-            {/* Date */}
+            {/* STORED SUBMISSION TIME */}
 
-{item.submittedAt && (
-  <p className="contact-date">
-    <strong>Date & Time:</strong>{" "}
-    {new Date(item.submittedAt).toLocaleString("en-IN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    })}
-  </p>
-)}
+            {item.submittedAt && (
+              <p className="contact-date">
+                <strong>Submitted:</strong>{" "}
+                {new Date(
+                  item.submittedAt
+                ).toLocaleString("en-IN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: true,
+                })}
+              </p>
+            )}
 
-            {/* Delete Button */}
+            {/* DELETE */}
 
             <button
               type="button"
@@ -674,7 +644,6 @@ function ViewContacts() {
                 ? "Deleting..."
                 : "Delete"}
             </button>
-
           </div>
         ))}
     </div>
@@ -682,4 +651,5 @@ function ViewContacts() {
 }
 
 export default ViewContacts;
+
 

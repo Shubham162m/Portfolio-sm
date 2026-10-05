@@ -34,7 +34,7 @@ function Contact() {
 
     try {
       const response = await fetch(
-        "https://smgalaxy-backend.onrender.com/api/contact",
+        "https://smgalaxy-backend.onrender.com/api/contacts",
         {
           method: "POST",
           headers: {

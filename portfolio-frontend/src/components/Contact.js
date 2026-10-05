@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Contact.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -39,11 +38,6 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("Please fill all fields.");
-      return;
-    }
-
     setLoading(true);
     setSubmitted(false);
 
@@ -77,58 +71,48 @@ const Contact = () => {
         alert(data.message || "Something went wrong.");
       }
     } catch (error) {
-      console.error("Contact form error:", error);
-      alert(
-        "Unable to connect to the server. Please check your internet connection."
-      );
+      console.error("Error:", error);
+      alert("Unable to connect to server.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section id="contact" className="contact">
-      <div className="container">
-        <div className="contact-wrapper">
+    <section id="contact">
+      <div>
+        <div>
 
-          {/* Contact Information */}
-          <div className="contact-info">
+          <div>
             <h3>Let's Talk</h3>
 
             <p>{YOUR_INFO.introText}</p>
 
-            <div className="contact-details">
-
-              <div className="contact-item">
+            <div>
+              <div>
                 <h4>Email</h4>
-
                 <a href={`mailto:${YOUR_INFO.email}`}>
                   {YOUR_INFO.email}
                 </a>
               </div>
 
-              <div className="contact-item">
+              <div>
                 <h4>Phone</h4>
-
                 <a href={`tel:${YOUR_INFO.phone}`}>
                   {YOUR_INFO.phone}
                 </a>
               </div>
 
-              <div className="contact-item">
+              <div>
                 <h4>Location</h4>
-
                 <p>{YOUR_INFO.location}</p>
               </div>
-
             </div>
 
-            {/* Social Links */}
-            <div className="contact-social">
+            <div>
               <h4>Follow Me</h4>
 
-              <div className="social-links">
-
+              <div>
                 <a
                   href={SOCIAL_LINKS.instagram}
                   target="_blank"
@@ -168,17 +152,14 @@ const Contact = () => {
                 >
                   GitHub
                 </a>
-
               </div>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <form className="contact-form" onSubmit={handleSubmit}>
-
+          <form onSubmit={handleSubmit}>
             <h3>Contact Me</h3>
 
-            <div className="form-group">
+            <div>
               <input
                 type="text"
                 name="name"
@@ -189,7 +170,7 @@ const Contact = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div>
               <input
                 type="email"
                 name="email"
@@ -200,7 +181,7 @@ const Contact = () => {
               />
             </div>
 
-            <div className="form-group">
+            <div>
               <textarea
                 name="message"
                 placeholder="Tell me about your project..."
@@ -211,21 +192,17 @@ const Contact = () => {
               />
             </div>
 
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={loading}
-            >
+            <button type="submit" disabled={loading}>
               {loading ? "Sending..." : "Send Message"}
             </button>
 
             {submitted && (
-              <div className="success-message">
+              <p>
                 Message sent successfully!
-              </div>
+              </p>
             )}
-
           </form>
+
         </div>
       </div>
     </section>

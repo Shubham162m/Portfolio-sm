@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import "./Contact.css";
 
-const Contact = () => {
+function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const YOUR_INFO = {
     name: "Modi Shubham",
@@ -30,10 +31,12 @@ const Contact = () => {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setFormData((previousData) => ({
+      ...previousData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -41,6 +44,7 @@ const Contact = () => {
 
     setLoading(true);
     setSubmitted(false);
+    setError("");
 
     try {
       const response = await fetch(
@@ -56,64 +60,88 @@ const Contact = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        setSubmitted(true);
-
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
-
-        setTimeout(() => {
-          setSubmitted(false);
-        }, 3000);
-      } else {
-        alert(data.message || "Something went wrong.");
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Failed to send message."
+        );
       }
+
+      setSubmitted(true);
+
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
     } catch (error) {
-      console.error("Error:", error);
-      alert("Unable to connect to server.");
+      console.error("Contact form error:", error);
+
+      setError(
+        error.message ||
+          "Unable to connect to the server."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section id="contact">
-      <div>
-        <div>
+    <section id="contact" className="contact">
+      <div className="container">
+        <div className="contact-wrapper">
 
-          <div>
+          {/* Contact Information */}
+          <div className="contact-info">
+
             <h3>Let's Talk</h3>
 
-            <p>{YOUR_INFO.introText}</p>
+            <p>
+              {YOUR_INFO.introText}
+            </p>
 
-            <div>
-              <div>
+            <div className="contact-details">
+
+              <div className="contact-item">
                 <h4>Email</h4>
-                <a href={`mailto:${YOUR_INFO.email}`}>
+
+                <a
+                  href={`mailto:${YOUR_INFO.email}`}
+                >
                   {YOUR_INFO.email}
                 </a>
               </div>
 
-              <div>
+              <div className="contact-item">
                 <h4>Phone</h4>
-                <a href={`tel:${YOUR_INFO.phone}`}>
+
+                <a
+                  href={`tel:${YOUR_INFO.phone}`}
+                >
                   {YOUR_INFO.phone}
                 </a>
               </div>
 
-              <div>
+              <div className="contact-item">
                 <h4>Location</h4>
-                <p>{YOUR_INFO.location}</p>
+
+                <p>
+                  {YOUR_INFO.location}
+                </p>
               </div>
+
             </div>
 
-            <div>
+            {/* Social Links */}
+            <div className="contact-social">
+
               <h4>Follow Me</h4>
 
-              <div>
+              <div className="social-links">
+
                 <a
                   href={SOCIAL_LINKS.instagram}
                   target="_blank"
@@ -153,14 +181,21 @@ const Contact = () => {
                 >
                   GitHub
                 </a>
+
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          {/* Contact Form */}
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+          >
+
             <h3>Contact Me</h3>
 
-            <div>
+            <div className="form-group">
+
               <input
                 type="text"
                 name="name"
@@ -169,9 +204,11 @@ const Contact = () => {
                 onChange={handleChange}
                 required
               />
+
             </div>
 
-            <div>
+            <div className="form-group">
+
               <input
                 type="email"
                 name="email"
@@ -180,9 +217,11 @@ const Contact = () => {
                 onChange={handleChange}
                 required
               />
+
             </div>
 
-            <div>
+            <div className="form-group">
+
               <textarea
                 name="message"
                 placeholder="Tell me about your project..."
@@ -191,23 +230,37 @@ const Contact = () => {
                 onChange={handleChange}
                 required
               />
+
             </div>
 
-            <button type="submit" disabled={loading}>
-              {loading ? "Sending..." : "Send Message"}
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={loading}
+            >
+              {loading
+                ? "Sending..."
+                : "Send Message"}
             </button>
 
             {submitted && (
-              <p>
+              <p className="success-message">
                 Message sent successfully!
               </p>
             )}
+
+            {error && (
+              <p className="error-message">
+                {error}
+              </p>
+            )}
+
           </form>
 
         </div>
       </div>
     </section>
   );
-};
+}
 
 export default Contact;
